@@ -21,7 +21,6 @@ output:
     # pandoc_args: [ "--output=index.html"] 
   
 ---
-`r rmarkdown::render(input="presentation.Rmd", output_file="index.html") `
 
 
 ```{r setup, include=T, echo=FALSE}
@@ -407,7 +406,9 @@ Data presented at Cz with reference at contralateral mastoid
 
 ## Artifact rejection
 
-![](./my_figures/artifact_supra_sub.png)
+```{r, out.width = "400px"}
+knitr::include_graphics("./my_figures/artifact_supra_sub.png")
+```
 
 
 ## Methods part 2
