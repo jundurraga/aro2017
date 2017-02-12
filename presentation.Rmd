@@ -18,9 +18,10 @@ output:
       before_body: doc_prefix.html
       after_body: doc_suffix.html
     css: presentation.css
-    pandoc_args: [ "--output=index.html"] 
+    # pandoc_args: [ "--output=index.html"] 
+  
 ---
-
+`r rmarkdown::render(input="presentation.Rmd", output_file="index.html") `
 
 
 ```{r setup, include=T, echo=FALSE}
