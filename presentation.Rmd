@@ -76,15 +76,19 @@ Loudness balancing Anodic vs. Cathodic (Undurraga et al., 2013)
 
 # Aims
 
+##
+
 - to evaluate how pitch is affected by stimulation level and polarity in human CI users
 Objectives measures of pitch discrimination.
 
-- to assess weather the acoustic complex change (eACC) can be used to measure pitch discrimination.
+- to assess whether the acoustic complex change (eACC) can be used to measure pitch discrimination.
 
 - to quantify the relationship between the eACC and behavioural discrimination.
 
 
-## Experiment 1
+
+
+# Experiment 1
 
 ## Methods
 
@@ -150,7 +154,8 @@ load('./pitch_data.RData')
 
 ```
 
-## Loudness contours 
+## Loudness contours
+
 
 
 ```{r loudness_contour, eval=F}
@@ -216,6 +221,11 @@ Two-way non-parametric RM-ANOVA (ALTPS conditions and DR)
 
 ```{r pitch_alt_ps}
 require(gridExtra)
+require(png)
+img <- readPNG("./my_figures/pulse-shapes-schematic.png")
+g <- rasterGrob(img, interpolate=TRUE)
+gp_an <-annotation_custom(g, xmin=5, xmax=6, ymin=0.6, ymax=1.0)
+
 gp1 = ezPlot2(preds = nonPar_nonPar_anovaCondition_Boot,
              x = REF_PS_RATE_SIG_PS_RATE,
              do_lines = FALSE) +
@@ -223,15 +233,28 @@ gp1 = ezPlot2(preds = nonPar_nonPar_anovaCondition_Boot,
   ylab("") + 
   geom_hline(yintercept = 0.5) +
   scale_y_continuous(breaks=c(0,0.5,1.0), labels=c("LOW", "EQUAL", "HIGH"), limits = c(0,1)) +
+  gp_an +
   formater
 
 ggsave(filename = "./my_figures/anova_altps.png", plot =  gp1, width = 14, height = 8, units = "cm")
 
+gp2 <- gp1 + 
+  annotate("rect", xmin = 0.8, xmax = 1.2, ymin = 0.0, ymax = 0.2, alpha = .2) +
+  annotate("rect", xmin = 2.8, xmax = 3.2, ymin = 0.0, ymax = 0.2, alpha = .2) +
+  annotate("rect", xmin = 4.8, xmax = 5.2, ymin = 0.0, ymax = 0.2, alpha = .2) +
+  gp_an
+
+
+ggsave(filename = "./my_figures/anova_altps_highlighted.png", plot =  gp2, width = 14, height = 8, units = "cm")
+
+
 ```
 
-|                                             |                                |
-|---------------------------------------------|--------------------------------|
-|![](./my_figures/pulse-shapes-schematic.svg)|![](./my_figures/anova_altps.png)|
+
+<div style="position:relative; width:640px; height:480px; margin:0 auto;">  
+<img class="fragment fade-out" data-fragment-index="0" width="640" height="480" src="./my_figures/anova_altps.png" style="position:absolute;top:0;left:0;" /> 
+<img class="fragment fade-in" data-fragment-index="0" width="640" height="480" src="./my_figures/anova_altps_highlighted.png" style="position:absolute;top:0;left:0;" /> </div>
+
 
 
 ```{r}
@@ -254,13 +277,6 @@ ggsave(filename = "./my_figures/anova_altps_dr.png", plot =  gp2, width = 17, he
 |---------------------------------------------|--------------------------------|
 |![](./my_figures/pulse-shapes-schematic.svg)|![](./my_figures/anova_altps_dr.png)|
 
-<!-- <section> -->
-<!-- <div style="position:relative; width:800px; height:680px; margin:0 auto;"> -->
-<!--   <img class="fragment" width="700" height="480" src="./my_figures/anova_altps.svg" style="position:absolute;top:0;left:0;" /> -->
-<!--   <img class="fragment" width="700" height="480" src="/my_figures/anova_altps_highlighted.svg" style="position:absolute;top:0;left:0;" /> -->
-<!-- </div> -->
-<!-- </section> -->
-
 
 
 ## PSA, PSC and SYM pitch ranking
@@ -270,6 +286,8 @@ ggsave(filename = "./my_figures/anova_altps_dr.png", plot =  gp2, width = 17, he
 - Condition (p < 0.001) and DR % (p = 0.03) were significant.
 
 ```{r sym_and_ps}
+gp_an <-annotation_custom(g, xmin=7, xmax=8, ymin=0.6, ymax=1.0)
+
 gp1 = ezPlot2(preds = nonPar_anovaDRPlot_nonALTPS_Boot,
              x = REF_PS_RATE_SIG_PS_RATE
              , do_lines = FALSE) +
@@ -277,15 +295,31 @@ gp1 = ezPlot2(preds = nonPar_anovaDRPlot_nonALTPS_Boot,
   ylab("") + 
   geom_hline(yintercept = 0.5) +
   scale_y_continuous(breaks=c(0,0.5,1.0), labels=c("LOW", "EQUAL", "HIGH"), limits = c(0,1)) +
+  gp_an +
   formater
 ggsave(filename = "./my_figures/anova_altps_sym.png", plot =  gp1, width = 14, height = 8, units = "cm")
+
+gp2 = ezPlot2(preds = nonPar_anovaDRPlot_nonALTPS_Boot,
+             x = REF_PS_RATE_SIG_PS_RATE
+             , do_lines = FALSE) +
+  xlab("Condition") + 
+  ylab("") + 
+  geom_hline(yintercept = 0.5) +
+  scale_y_continuous(breaks=c(0,0.5,1.0), labels=c("LOW", "EQUAL", "HIGH"), limits = c(0,1)) +
+  annotate("rect", xmin = 4.8, xmax = 5.2, ymin = 0.1, ymax = 0.4, alpha = .2) +
+  annotate("rect", xmin = 7.8, xmax = 8.2, ymin = 0.1, ymax = 0.5, alpha = .2) + 
+  gp_an +
+  formater
+ggsave(filename = "./my_figures/anova_altps_sym_highlighted.png", plot =  gp2, width = 14, height = 8, units = "cm")
+
 
 ```
 
 
-|                                              |                              |
-:---------------------------------------------:|:-----------------------------:
-|![](./my_figures/pulse-shapes-schematic.svg)  |  ![](./my_figures/anova_altps_sym.png)|
+<div style="position:relative; width:640px; height:480px; margin:0 auto;">  
+<img class="fragment fade-out" data-fragment-index="0" width="640" height="480" src="./my_figures/anova_altps_sym.png" style="position:absolute;top:0;left:0;" /> 
+<img class="fragment fade-in" data-fragment-index="0" width="640" height="480" src="./my_figures/anova_altps_sym_highlighted.png" style="position:absolute;top:0;left:0;" /> </div>
+
 
 
 ## PSA, PSC and SYM pitch ranking
@@ -310,7 +344,7 @@ ggsave(filename = "./my_figures/anova_altps_sym_dr.png", plot =  gp2, width = 17
 
 
 
-## Conclusions Exp1
+## Conclusions
 
 
 - ***ALTPS 150 pps*** pulse trains elicited a ***lower pitch*** than PSA and SYMA
@@ -363,16 +397,15 @@ Data presented at Cz with reference at contralateral mastoid
 <!-- knitr::include_graphics("./my_figures/artifacts_example.png") -->
 <!-- ``` -->
 
-## Results
-
-```{r, out.width = "400px"}
-knitr::include_graphics("./my_figures/artifact_supra_sub.png")
-```
-
-
-## Results
+## Artifact rejection
 
 ![](./my_figures/artifacts_example_removal.png)
+
+
+
+## Artifact rejection
+
+![](./my_figures/artifact_supra_sub.png)
 
 
 ## Methods part 2
@@ -400,7 +433,7 @@ knitr::include_graphics("./my_figures/pass_fail_acc.png")
 - For more details see poster ***PS 726***
 
 
-## Conclusions Exp 2
+## Conclusions
 
 - Electrical artifact can be reliable removed for all device tested.
 
@@ -415,7 +448,7 @@ knitr::include_graphics("./my_figures/pass_fail_acc.png")
 
 - These factors need to be taken into account in future novel stimulation strategies (electrode activation, pulse shape). 
 
-- Objective measures such as eACC could be a potential tool to assess electrode discrimination.
+- Objective measures such as eACC could be a potential ***tool to assess electrode discrimination***.
 
 
 ## Acknowledgments
