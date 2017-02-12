@@ -155,7 +155,7 @@ load('./pitch_data.RData')
 
 ```
 
-## Loudness contours
+## Loudness growth
 
 
 
@@ -167,7 +167,7 @@ anovaLoudnessPLot = ezPlot2(
   , split = PS
 ) 
 
-anovaLoudnessPLot <- (anovaLoudnessPLot + xlab("Pulse Shape") +
+anovaLoudnessPLot <- (anovaLoudnessPLot + xlab("% DR") +
                         ylab(expression(paste("Current Level [ref 1", mu, "A]", sep="")))
 )
 gp = anovaLoudnessPLot + formater
