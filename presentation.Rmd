@@ -1,6 +1,6 @@
 ---
 title:  "Electrode-neuron interface as a limiting factor in cochlear implant efficacy "
-author: "Jaime A. Undurraga, Astrid van Wieringen, Deborah Vickers, Rajeev Mathew"
+author: "Jaime A. Undurraga, Astrid van Wieringen, Deborah Vickers, Rajeev Mathew, David McAlpine"
 date: "`r Sys.Date()`"
 output: 
   revealjs::revealjs_presentation:
