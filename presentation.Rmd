@@ -142,13 +142,12 @@ library(doMC)
 source("~/Documents/source_code/r-tools/plot_set.R")
 
 
-formater <- theme_bw() +  theme(panel.grid.major = element_blank(), 
-                                panel.grid.minor = element_blank(),
-                                panel.border = element_blank(),
-                                panel.background = element_blank()) + 
-  theme(axis.line.x = element_line(color="black", size = 1), axis.line.y = element_line(color="black", size = 1)) +
-  theme(strip.background = element_blank()) +
-  theme(legend.text=element_text(size=12), text = element_text(size=12))
+formater <- theme_bw() +  theme(panel.border = element_blank(), panel.background = element_blank()) + 
+  theme(legend.text=element_text(size=12), text = element_text(size=12)) +
+  theme(axis.line.x = element_line(color="black", size = 1), axis.line.y = element_line(color="black", size = 1)) + 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+  # theme(strip.background = element_blank()) +
+  
              
 load('./pitch_data.RData')
 
@@ -159,7 +158,7 @@ load('./pitch_data.RData')
 
 
 
-```{r loudness_contour, eval=F}
+```{r loudness_contour, eval=FALSE}
 
 anovaLoudnessPLot = ezPlot2(
   preds = nonPar_Anova_anova_Loudness_mean_Boot
@@ -167,9 +166,8 @@ anovaLoudnessPLot = ezPlot2(
   , split = PS
 ) 
 
-anovaLoudnessPLot <- (anovaLoudnessPLot + xlab("% DR") +
-                        ylab(expression(paste("Current Level [ref 1", mu, "A]", sep="")))
-)
+anovaLoudnessPLot <- anovaLoudnessPLot + xlab("% DR") + ylab(expression(paste("Current Level [ref 1", mu, "A]", sep="")))
+
 gp = anovaLoudnessPLot + formater
 ggsave(filename = './my_figures/loundess_countour.png', plot = gp ,width = 14, height = 8, units = "cm")
 
